@@ -1,6 +1,7 @@
+
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Bootcamp Class 2
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -20,25 +21,24 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Runs a single command using the runners shell
     - name: Setup Node.js environment
-      uses: actions/setup-node@v2-beta
-      with: 
-        version: 12
-        
-    - name: GitHub Action for Yarn
-      uses: Borales/actions-yarn@v2.1.0
+      uses: actions/setup-node@v1.4.2
       with:
-        # Yarn command
-        cmd: install # npm install/ yarn install
-    
+        version: 12  
+
+    # Runs a set of commands using the runners shell
+    - name: GitHub Action for Yarn
+      uses: Borales/actions-yarn@v2.3.0
+      with:
+         # Yarn command
+        cmd: install
+      
     - name: Creating build
       run: yarn build
-    
-    - name: installing surge  
-      run: npm install -g surge
-    
-    - name: deploying on surge
-      run: surge ./build http://tested-stick.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
-    
-    
+     
+    - name: installing surge
+      run:   npm install --global surge 
 
+    - name: Deploying surge
+      run:  surge ./build http://tested-stick.surge.sh/ --token ${{secrets.Surge_Token}}
